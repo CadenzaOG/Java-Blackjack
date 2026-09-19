@@ -1,13 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class BorderView extends JPanel {
+public class GameView extends JPanel {
 
     private JButton button;
     private JTextArea text = new JTextArea();
     private GridBagConstraints gbc;
+    private Timer timer = new Timer(16,null);
 
-    public BorderView() {
+    public GameView() {
         for (int i = 0; i < 25; i++) {
           JButton b = new JButton(String.valueOf(i));
             int finalI = i;
@@ -17,6 +18,10 @@ public class BorderView extends JPanel {
           this.add(b);
 
         }
+    }
+
+    protected void paintComponent(Graphics g) {
+
     }
 
 }

@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.nio.file.Path;
 
 public class Main {
 
@@ -9,7 +10,7 @@ public class Main {
         JFrame window = new JFrame();
 
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.add(new BorderView());
+        window.add(new GameView());
         window.setResizable(false);
         window.setSize(300, 300);
         window.setLocationRelativeTo(null);
@@ -18,9 +19,13 @@ public class Main {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            createUI();
-        });
+        SwingUtilities.invokeLater(Main::createUI);
+
+        StringBuilder str = new StringBuilder();
+
+        Path path =
+
+        System.out.println(string);
     }
 }
 
