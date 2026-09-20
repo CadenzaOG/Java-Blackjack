@@ -21,11 +21,9 @@ public class Main {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Main::createUI);
 
-        StringBuilder str = new StringBuilder();
 
-        Path path =
 
-        System.out.println(string);
+
     }
 }
 
