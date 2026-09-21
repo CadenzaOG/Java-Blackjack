@@ -24,4 +24,8 @@ public class Card {
         return this.cardValue.equals(CardValue.ACE);
     }
 
+    @Override
+    public String toString() {
+        return cardValue.toString() + "-" +suit+".png";
+    }
 }
