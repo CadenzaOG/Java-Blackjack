@@ -33,6 +33,10 @@ public class Blackjack {
         dealer.hit(deck.drawCard());
     }
 
+//    public boolean checkPlayerWin() {
+//        if (player.get);
+//    }
+
 
 
 

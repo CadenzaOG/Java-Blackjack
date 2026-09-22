@@ -13,12 +13,12 @@ public class Main {
         GameView view = new GameView();
         view.setBackground(Color.BLACK);
         view.setPreferredSize(new Dimension(1056,480));
-
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.add(view);
         window.setResizable(false);
         window.pack();
         window.setLocationRelativeTo(null);
+        view.requestFocus();
         window.setVisible(true);
     }
 

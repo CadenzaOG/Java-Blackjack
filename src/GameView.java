@@ -9,6 +9,7 @@ import java.nio.Buffer;
 public class GameView extends JPanel {
 
     private JButton button;
+    private final Blackjack game;
     private final int cardOffsetX = 288;
     private final int cardWidth = 96;
     private final int cardHeight = 96;
@@ -22,12 +23,14 @@ public class GameView extends JPanel {
 
 
     public GameView() {
+        this.game = new Blackjack();
         this.assets = new AssetManager();
         card1 = deck.drawCard();
         card2 = deck.drawCard();
         this.testCard1 = assets.getCardSprite(card1.toString());
         System.out.println(testCard1);
         this.testCard2 = assets.getCardSprite(card2.toString());
+        addKeyListener(new PlayerInput());
     }
 
     protected void paintComponent(Graphics g) {

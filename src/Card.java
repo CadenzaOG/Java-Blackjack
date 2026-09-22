@@ -1,15 +1,15 @@
 public class Card {
 
-    private final CardValue cardValue;
+    private final Rank rank;
     private final Suit suit;
 
-    public Card(CardValue cardValue, Suit suit) {
-        this.cardValue = cardValue;
+    public Card(Rank rank, Suit suit) {
+        this.rank = rank;
         this.suit = suit;
     }
 
-    public CardValue getCardValue() {
-        return cardValue;
+    public Rank getCardValue() {
+        return rank;
     }
 
     public Suit getSuit() {
@@ -17,15 +17,15 @@ public class Card {
     }
 
     public int getIntValue() {
-        return cardValue.value;
+        return rank.value;
     }
 
     public boolean isAce() {
-        return this.cardValue.equals(CardValue.ACE);
+        return this.rank.equals(Rank.ACE);
     }
 
     @Override
     public String toString() {
-        return cardValue + "-" +suit;
+        return rank + "-" +suit;
     }
 }

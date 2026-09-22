@@ -28,12 +28,11 @@ public class AssetManager {
 
     private void loadCards() {
         for (Suit s: Suit.values()) {
-            for (CardValue v : CardValue.values()) {
+            for (Rank v : Rank.values()) {
                 try {
                     String cardPath = "sprites/"+v+"-"+s+".png";
                     System.out.println(cardPath);
                     BufferedImage img = ImageIO.read(getClass().getResourceAsStream(cardPath));
-                        Card card = new Card(v, s);
                         cardSprites.put(v+"-"+s, img);
                 } catch (IOException e) {
                     System.out.println(e);

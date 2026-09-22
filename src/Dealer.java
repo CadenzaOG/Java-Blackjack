@@ -3,6 +3,8 @@ import java.util.ArrayList;
 public class Dealer {
 
     private ArrayList<DealerCard> hand;
+    private int handTotal;
+    private int handSize;
 
     public Dealer() {
         this.hand = new ArrayList<>();

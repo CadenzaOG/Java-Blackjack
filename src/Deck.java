@@ -32,7 +32,7 @@ public class Deck {
 
     private void initDeck() {
        for (Suit s: Suit.values()) {
-            for (CardValue v: CardValue.values()) {
+            for (Rank v: Rank.values()) {
                 cards.add(new Card(v, s));
             }
        }
@@ -41,7 +41,5 @@ public class Deck {
     public Card drawCard() {
         return cards.removeLast();
     }
-
-
 }
 
