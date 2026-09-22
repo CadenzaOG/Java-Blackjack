@@ -4,6 +4,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.nio.file.Path;
 
+// https://docs.oracle.com/javase/tutorial/uiswing/events/changelistener.html
+
 public class Main {
 
     public static void createUI() {
@@ -16,8 +18,8 @@ public class Main {
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.add(view);
         window.setResizable(false);
-        window.setLocationRelativeTo(null);
         window.pack();
+        window.setLocationRelativeTo(null);
         window.setVisible(true);
 
     }

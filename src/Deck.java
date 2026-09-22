@@ -10,7 +10,9 @@ public class Deck {
         this.cards = new ArrayList<>();
         this.rand = new Random();
         initDeck();
-        shuffle();
+        for (int i = 0; i <= 3; i++) {
+            shuffle();
+        }
     }
 
     public void printOrder() {
