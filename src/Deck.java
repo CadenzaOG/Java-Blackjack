@@ -10,9 +10,7 @@ public class Deck {
         this.cards = new ArrayList<>();
         this.rand = new Random();
         initDeck();
-        for (int i = 0; i <= 3; i++) {
-            shuffle();
-        }
+        shuffle();
     }
 
     public void printOrder() {
@@ -22,7 +20,6 @@ public class Deck {
     }
 
     // Fisher-Yates shuffle algorithm
-   // https://www.geeksforgeeks.org/dsa/shuffle-a-given-array-using-fisher-yates-shuffle-algorithm/
     private void shuffle() {
         for (int i = cards.size() - 1; i > 0; i--) {
             int j = rand.nextInt(i + 1);
