@@ -9,7 +9,6 @@ import java.nio.file.Path;
 public class Main {
 
     public static void createUI() {
-
         JFrame window = new JFrame();
         GameView view = new GameView();
         view.setBackground(Color.BLACK);
@@ -21,12 +20,10 @@ public class Main {
         window.pack();
         window.setLocationRelativeTo(null);
         window.setVisible(true);
-
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(Main::createUI);
-
     }
 }
 
