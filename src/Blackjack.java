@@ -71,6 +71,7 @@ public class Blackjack {
             dealerTurn();
             outcome = resolveRound();
         } else if (player.getHandTotal() > 21) {
+            holeCardHidden = false;
             outcome = resolveRound();
         }
 
