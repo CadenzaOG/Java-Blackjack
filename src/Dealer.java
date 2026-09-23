@@ -1,21 +1,20 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class Dealer {
+public class Dealer extends Player {
 
-    private ArrayList<DealerCard> hand;
+    private ArrayList<Card> hand;
     private int handTotal;
     private int handSize;
 
     public Dealer() {
         this.hand = new ArrayList<>();
+        this.handSize = 0;
+        this.handTotal = 0;
     }
 
-    public void hit(Card card) {
-        hand.add(new DealerCard(card));
-    }
+    public ArrayList<Card> getHand() { return hand; }
 
-    public void discard() {
-        hand.clear();
-    }
+
 
 }

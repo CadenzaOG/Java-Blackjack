@@ -31,9 +31,9 @@ public class AssetManager {
             for (Rank v : Rank.values()) {
                 try {
                     String cardPath = "sprites/"+v+"-"+s+".png";
-                    System.out.println(cardPath);
                     BufferedImage img = ImageIO.read(getClass().getResourceAsStream(cardPath));
-                        cardSprites.put(v+"-"+s, img);
+                    cardSprites.put(v+"-"+s, img);
+                    System.out.println("Loaded: "+cardPath);
                 } catch (IOException e) {
                     System.out.println(e);
                 }
