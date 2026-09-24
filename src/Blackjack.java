@@ -70,7 +70,7 @@ public class Blackjack {
         if (player.getHandTotal() == 21) {
             dealerTurn();
             outcome = resolveRound();
-        } else if (player.getHandTotal() > 21) {
+        } else if (player.getHandTotal() > 21 || player.getHandSize() == 5) {
             holeCardHidden = false;
             outcome = resolveRound();
         }
