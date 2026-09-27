@@ -42,15 +42,16 @@ public class Blackjack {
 
     public void gameStart() {
         this.deck = new Deck();
-        dealer.hit(deck.drawCard());
-        dealer.hit(deck.drawCard());
-        player.hit(deck.drawCard());
-        player.hit(deck.drawCard());
+        dealerHit();
+        playerHit();
+        dealerHit();
+        playerHit();
         if (player.getHandTotal() == 21) {
             dealerTurn();
             outcome = resolveRound();
+        } else {
+            state = GameState.PLAYER_TURN;
         }
-        state = GameState.PLAYER_TURN;
         System.out.println("Hand: "+player.getHandTotal());
 
     }
@@ -64,7 +65,10 @@ public class Blackjack {
     }
 
     public void playerHit() {
-        player.hit(deck.drawCard());
+        Card card = deck.drawCard();
+        player.hit(card);
+        int handPos = player.getHandSize() - 1;
+        listener.playerCardDrawn(card,handPos);
         System.out.println("Hand total: "+ player.getHandTotal());
         System.out.println("Hand: "+player.getHandTotal());
         if (player.getHandTotal() == 21) {
@@ -89,11 +93,16 @@ public class Blackjack {
                 dealerHit();
             }
             holeCardHidden = false;
+            listener.revealHoleCard();
         }
 
 
     public void dealerHit() {
-        dealer.hit(deck.drawCard());
+        Card card = deck.drawCard();
+        dealer.hit(card);
+        int handPos = dealer.getHandSize() - 1;
+        boolean holeCard = handPos == 0;
+        listener.dealerCardDrawn(card,handPos,holeCard);
     }
 
     private Outcome resolveRound() {

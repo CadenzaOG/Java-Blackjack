@@ -32,6 +32,7 @@ public class PlayerInput implements KeyListener {
 
         if (game.getState() == GameState.ROUND_OVER) {
             if (k == KeyEvent.VK_ENTER) {
+                gameView.resetBoard();
                 game.resetGame();
                 gameView.repaint();
             }
