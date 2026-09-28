@@ -35,10 +35,6 @@ public class GameView extends JPanel implements GameListener, Runnable {
     private Thread gameThread;
     private boolean gameRunning;
 
-    private int updates = 0;
-    private int paints = 0;
-    private long debugTimer = System.nanoTime();
-
 
 
 
@@ -123,8 +119,6 @@ public class GameView extends JPanel implements GameListener, Runnable {
                 g.drawString("Draw!",TEXT_OFFSET_X, TEXT_OFFSET_Y);
         }
 
-        paints++;
-
 
 
 
@@ -205,18 +199,6 @@ public class GameView extends JPanel implements GameListener, Runnable {
             repaint();
 
             frameEnd = System.nanoTime();
-            updates++;
-
-            if (System.nanoTime() - debugTimer >= 1_000_000_000L) {
-                System.out.println(
-                        "Updates: " + updates +
-                                " Paints: " + paints
-                );
-
-                updates = 0;
-                paints = 0;
-                debugTimer = System.nanoTime();
-            }
 
             long timDiff = frameEnd - frameStart;
             long sleepTime = (long) (period - timDiff);
