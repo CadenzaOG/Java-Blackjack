@@ -16,8 +16,8 @@ public class GameView extends JPanel implements GameListener, Runnable {
     private final int TEXT_OFFSET_X = 366;
     private final int TEXT_OFFSET_Y = 64;
     private final int cardOffsetX = 288;
-    private final int CARD_WIDTH = 96;
-    private final int CARD_HEIGHT = 96;
+    private final int CARD_WIDTH = 97;
+    private final int CARD_HEIGHT = 97;
     private final int DECK_X = 96;
     private final int DECK_Y = 96;
     private final int cardOffsetY = 96;
@@ -34,6 +34,10 @@ public class GameView extends JPanel implements GameListener, Runnable {
 
     private Thread gameThread;
     private boolean gameRunning;
+
+    private int updates = 0;
+    private int paints = 0;
+    private long debugTimer = System.nanoTime();
 
 
 
@@ -119,6 +123,8 @@ public class GameView extends JPanel implements GameListener, Runnable {
                 g.drawString("Draw!",TEXT_OFFSET_X, TEXT_OFFSET_Y);
         }
 
+        paints++;
+
 
 
 
@@ -199,12 +205,26 @@ public class GameView extends JPanel implements GameListener, Runnable {
             repaint();
 
             frameEnd = System.nanoTime();
+            updates++;
+
+            if (System.nanoTime() - debugTimer >= 1_000_000_000L) {
+                System.out.println(
+                        "Updates: " + updates +
+                                " Paints: " + paints
+                );
+
+                updates = 0;
+                paints = 0;
+                debugTimer = System.nanoTime();
+            }
 
             long timDiff = frameEnd - frameStart;
             long sleepTime = (long) (period - timDiff);
+            long sleepMills = sleepTime / 1_000_000;
+            int sleepNano = (int) (sleepTime % 1_000_000);
             if (sleepTime > 0) {
                 try {
-                    gameThread.sleep(sleepTime / 1_000_000);
+                    gameThread.sleep(sleepMills,sleepNano);
                 } catch (InterruptedException e) { }
             }
         }
@@ -213,7 +233,12 @@ public class GameView extends JPanel implements GameListener, Runnable {
 
     private void drawCard(Graphics g, CardEntity c) {
         BufferedImage cardSprite = assets.getCardSprite(c.getCardKey());
-        g.drawImage(cardSprite,c.getX() + ((CARD_WIDTH - c.getWidth()) / 2),c.getY(),c.getWidth(),CARD_HEIGHT,this);
+        if (c.getWidth() != CARD_WIDTH) {
+            g.drawImage(cardSprite,c.getX() + ((CARD_WIDTH - c.getWidth()) / 2),c.getY(),c.getWidth(),CARD_HEIGHT,this);
+        } else {
+            g.drawImage(cardSprite,c.getX(),c.getY(),this);
+        }
+
     }
 
     private void paintScreen() {

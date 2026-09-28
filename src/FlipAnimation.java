@@ -3,7 +3,7 @@ public class FlipAnimation implements Animation {
 
     private CardEntity card;
 
-    private final double duration = 0.3; // length in frames
+    private final double duration = 0.2; // length in frames
     private double t = 0;
     private boolean isFinished = false;
     private String currentSprite;
