@@ -23,6 +23,8 @@ public class Player {
 
     }
 
+
+
     private void calculateHandTotal() {
         handTotal = 0;
         aceCount = 0;

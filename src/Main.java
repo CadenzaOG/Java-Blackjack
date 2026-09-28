@@ -30,6 +30,7 @@ public class Main {
         window.pack();
         window.setLocationRelativeTo(null);
         view.requestFocus();
+        view.startGameThread();
         window.setVisible(true);
 
     }
