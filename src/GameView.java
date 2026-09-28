@@ -34,6 +34,7 @@ public class GameView extends JPanel implements GameListener, Runnable {
 
     private Thread gameThread;
     private boolean gameRunning;
+    private int frames;
 
 
 
@@ -135,12 +136,6 @@ public class GameView extends JPanel implements GameListener, Runnable {
 
 
     @Override
-    public void gameChanged() {
-        repaint();
-    }
-
-
-    @Override
     public void playerCardDrawn(Card card, int handPos) {
         System.out.println("Card: " + card);
         CardEntity c = new CardEntity(card,DECK_X,DECK_Y,CARD_WIDTH,CARD_HEIGHT);
@@ -200,6 +195,7 @@ public class GameView extends JPanel implements GameListener, Runnable {
 
             frameEnd = System.nanoTime();
 
+
             long timDiff = frameEnd - frameStart;
             long sleepTime = (long) (period - timDiff);
             long sleepMills = sleepTime / 1_000_000;
@@ -209,6 +205,8 @@ public class GameView extends JPanel implements GameListener, Runnable {
                     gameThread.sleep(sleepMills,sleepNano);
                 } catch (InterruptedException e) { }
             }
+
+
         }
 
     }
@@ -223,14 +221,4 @@ public class GameView extends JPanel implements GameListener, Runnable {
 
     }
 
-    private void paintScreen() {
-        repaint();
-    }
-
-    private void gameRender() {
-    }
-
-    private void gameUpdate() {
-
-    }
 }

@@ -2,7 +2,7 @@ import java.lang.Math;
 
 public class MoveAnimation implements Animation {
 
-    private final double duration = 0.3;
+    private final double duration = 0.35;
     private double t;
     private int startX, startY, endX, endY;
     private final CardEntity card;

@@ -10,21 +10,13 @@ public class Blackjack {
     private final Player dealer;
     private Deck deck;
     private GameState state;
-    private boolean holeCardHidden;
     private Outcome outcome;
 
     public void setGameListener(GameListener listener) {
         this.listener = listener;
     }
 
-    private void gameChanged() {
-        if (listener != null) {
-            listener.gameChanged();
-        }
-    }
-
     public Blackjack() {
-        this.holeCardHidden = true;
         this.player = new Player();
         this.dealer = new Dealer();
         this.state = GameState.DEALER_TURN;
@@ -34,7 +26,6 @@ public class Blackjack {
     public void resetGame() {
         player.discard();
         dealer.discard();
-        holeCardHidden = true;
         state = GameState.DEALER_TURN;
         outcome = Outcome.IN_PLAY;
         gameStart();
@@ -53,15 +44,6 @@ public class Blackjack {
             state = GameState.PLAYER_TURN;
         }
         System.out.println("Hand: "+player.getHandTotal());
-
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public Player getDealer() {
-        return dealer;
     }
 
     public void playerHit() {
@@ -75,7 +57,6 @@ public class Blackjack {
             dealerTurn();
             outcome = resolveRound();
         } else if (player.getHandTotal() > 21 || player.getHandSize() == 5) {
-            holeCardHidden = false;
             outcome = resolveRound();
         }
 
@@ -92,8 +73,7 @@ public class Blackjack {
             while (dealer.getHandTotal() < 17) {
                 dealerHit();
             }
-            holeCardHidden = false;
-            listener.revealHoleCard();
+        listener.revealHoleCard();
         }
 
 
@@ -159,11 +139,9 @@ public class Blackjack {
 
     }
 
-
     public GameState getState() { return state; }
 
     public Outcome getOutcome() { return outcome; }
 
-    public boolean getHoleCardHidden() { return holeCardHidden; }
 
 }

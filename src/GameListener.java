@@ -1,6 +1,5 @@
 public interface GameListener {
 
-    void gameChanged();
 
     void playerCardDrawn(Card card, int handPos);
 
