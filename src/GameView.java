@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class GameView extends JPanel implements GameListener, Runnable {
 
-    private JButton button;
+
     private final Blackjack game;
     private final int PANEL_WIDTH = 1056;
     private final int PANEL_HEIGHT = 480;
@@ -15,35 +15,23 @@ public class GameView extends JPanel implements GameListener, Runnable {
     private final int PLAYER_OFFSET_Y = 288;
     private final int TEXT_OFFSET_X = 366;
     private final int TEXT_OFFSET_Y = 64;
-    private final int cardOffsetX = 288;
     private final int CARD_WIDTH = 97;
     private final int CARD_HEIGHT = 97;
     private final int DECK_X = 96;
     private final int DECK_Y = 96;
-    private final int cardOffsetY = 96;
     private static final int FPS = 60;
     private AssetManager assets;
-    private JLabel status;
-    private FlipAnimation animation;
 
     private AnimationManager animationManager;
     private ArrayList<CardEntity> cards;
     private CardEntity holeCardEntity;
 
-
-
     private Thread gameThread;
     private boolean gameRunning;
-    private int frames;
-
 
 
 
     public GameView(Blackjack game, AssetManager assets) {
-        setLayout(new BorderLayout());
-        status = new JLabel();
-        status.setBackground(Color.BLACK);
-        add(status, BorderLayout.SOUTH);
         this.assets = assets;
         this.game = game;
         animationManager = new AnimationManager();
@@ -59,40 +47,9 @@ public class GameView extends JPanel implements GameListener, Runnable {
 
         super.paintComponent(g);
 
-
-//        // Draw Dealer Cards
-//        Player d = game.getDealer();
-//        for (int i = 0; i < d.getHandSize(); i++) {
-//            int x = DEALER_OFFSET_X + (i * CARD_WIDTH);
-//            int y = DEALER_OFFSET_Y;
-//
-//            // If card hidden, draw card back
-//            if (i == 0 && game.getHoleCardHidden()) {
-//                g.drawImage(assets.getCardSprite("BACK"), x, y, this);
-//            } else {
-//                BufferedImage card = assets.getCardSprite(d.getCardKey(i));
-//                g.drawImage(card,x,y,this);
-//            }
-//        }
-//
-//        // For each of player cards, draw at offset x + hand index * card width.
-//
-//        // Draw Player Cards
-//        Player p = game.getPlayer();
-//        for (int i = 0; i < p.getHandSize(); i++) {
-//            int x = PLAYER_OFFSET_X + (i * CARD_WIDTH);
-//            int y = PLAYER_OFFSET_Y ;
-//
-//            BufferedImage card = assets.getCardSprite(p.getCardKey(i));
-//            g.drawImage(card,x,y,this);
-//        }
-//
-
-
         //Draw Background
         g.drawImage(assets.getBackground(),
                 0,0 , this) ;
-
 
         for (CardEntity c: cards) {
             drawCard(g, c);
@@ -100,7 +57,6 @@ public class GameView extends JPanel implements GameListener, Runnable {
 
 
         // Draw outcome TEMPORARY
-
         g.setFont(new Font("Arial",Font.BOLD, 36));
         g.setColor(new Color(214,163,65));
         switch (game.getOutcome()) {
@@ -121,12 +77,6 @@ public class GameView extends JPanel implements GameListener, Runnable {
         }
 
 
-
-
-        // For each of player cards, draw at offset x + hand index * card width.
-
-
-
     }
 
     public void resetBoard() {
@@ -144,10 +94,6 @@ public class GameView extends JPanel implements GameListener, Runnable {
         int endX = PLAYER_OFFSET_X + (handPos * CARD_WIDTH);
         int endY = PLAYER_OFFSET_Y;
         cards.add(c);
-        System.out.println(
-                "handPos=" + handPos +
-                        " endX=" + endX
-        );
         animationManager.add(new MoveFlipAnimation(c,startX,startY,endX,endY));
     }
 
@@ -175,13 +121,8 @@ public class GameView extends JPanel implements GameListener, Runnable {
 
     @Override
     public void run() {
-
-
         double period = 1_000_000_000.0 / FPS;
-
-
         gameRunning = true;
-
 
         long frameEnd = System.nanoTime();
 
@@ -195,7 +136,6 @@ public class GameView extends JPanel implements GameListener, Runnable {
 
             frameEnd = System.nanoTime();
 
-
             long timDiff = frameEnd - frameStart;
             long sleepTime = (long) (period - timDiff);
             long sleepMills = sleepTime / 1_000_000;
@@ -203,7 +143,10 @@ public class GameView extends JPanel implements GameListener, Runnable {
             if (sleepTime > 0) {
                 try {
                     gameThread.sleep(sleepMills,sleepNano);
-                } catch (InterruptedException e) { }
+                } catch (InterruptedException e) {
+                    System.out.println("Error: " + e);
+                    e.printStackTrace();
+                }
             }
 
 
@@ -214,7 +157,11 @@ public class GameView extends JPanel implements GameListener, Runnable {
     private void drawCard(Graphics g, CardEntity c) {
         BufferedImage cardSprite = assets.getCardSprite(c.getCardKey());
         if (c.getWidth() != CARD_WIDTH) {
-            g.drawImage(cardSprite,c.getX() + ((CARD_WIDTH - c.getWidth()) / 2),c.getY(),c.getWidth(),CARD_HEIGHT,this);
+            g.drawImage(
+                    cardSprite,
+                    c.getX() + ((CARD_WIDTH - c.getWidth()) / 2)
+                    ,c.getY(),c.getWidth(),CARD_HEIGHT,
+                    this);
         } else {
             g.drawImage(cardSprite,c.getX(),c.getY(),this);
         }
